@@ -15,11 +15,12 @@ import {SERVER_URL} from '../constants.js'
 class Assignment extends Component {
     constructor(props) {
       super(props);
-      this.state = {selected: 0, rows: []};
+      this.state = {selected: 0, rows: [], name: "", dueDate: "", course: ""};
     };
  
    componentDidMount() {
     this.fetchAssignments();
+    // TODO: fetch courses for UI store in props
   }
  
   fetchAssignments = () => {
@@ -42,12 +43,58 @@ class Assignment extends Component {
       }        
     })
     .catch(err => console.error(err)); 
-  }
+  }// fetchAssignments
   
-   onRadioClick = (event) => {
+  onRadioClick = (event) => {
     console.log("Assignment.onRadioClick " + event.target.value);
     this.setState({selected: event.target.value});
+  }// onRadioClick
+
+  onNameChange = (e) => {
+    this.setState({name: e.target.value});
   }
+
+  onDateChange = (e) => {
+    this.setState({date: e.target.value});
+  }
+
+  onCourseChange = (e) => {
+    this.setState({course: e.target.value});
+  }
+
+  addAssignment = () => {
+    console.log("adding assignment");
+    const token = Cookies.get('XSRF-TOKEN');
+
+    fetch(`${SERVER_URL}/addAssignment`,
+    {
+      method: 'POST',
+      headers: { 'X-XSRF-TOKEN': token ,'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        assignmentName: this.state.name,
+        dueDate: this.state.dueDate,
+        courseId: this.state.course
+      })
+    }
+    ).then(res => {
+          if (res.ok) {
+            toast.success("Assignment Added Successfully", {
+            position: toast.POSITION.BOTTOM_LEFT
+            });
+            this.fetchAssignments();
+          } else {
+            toast.error("Add Assignment failed", {
+            position: toast.POSITION.BOTTOM_LEFT
+            });
+            console.error('POST http status =' + res.status);
+      }})
+        .catch(err => {
+          toast.error("Add Assignment failed", {
+            position: toast.POSITION.BOTTOM_LEFT
+          });
+          console.error(err);
+        });    
+  }// addAssignment
   
   render() {
      const columns = [
@@ -72,6 +119,7 @@ class Assignment extends Component {
       { field: 'dueDate', headerName: 'Due Date', width: 200 }
       ];
       return (
+        <div id="assignmentBody">
           <div align="left" >
                 <h4>Assignment(s) ready to grade: </h4>
                   <div style={{ height: 450, width: '100%', align:"left"   }}>
@@ -82,6 +130,23 @@ class Assignment extends Component {
                   Grade
                 </Button>
           </div>
+
+          <div> 
+            <h4>Add New Assignment To Gradebook</h4>
+            <label for="assignmentName">Assignment Name: </label>
+            <input type="text" id="assignmentName" name="assignmentName" onChange={this.onNameChange}></input><br></br>
+            {/*TODO: date time picker*/}
+            <label for="assignmentDueDate">Assignment Due Date: </label>
+            <input type="text" id="assignmentDueDate" name="assignmentDueDate" placeholder="09/21/21 11:59pm" onChange={this.onDateChange}></input><br></br>
+            {/*TODO: dropdown list of course names*/}
+            <label for="courseName">Course Name: </label>
+            <input type="text" id="courseName" onChange={this.onCourseChange}></input><br></br>
+            <Button component={Link} to={{pathname:'/gradebook/addAssignment'}}>
+              Add Assignment
+            </Button>
+          </div>        
+
+        </div>
       )
   }
 }  
