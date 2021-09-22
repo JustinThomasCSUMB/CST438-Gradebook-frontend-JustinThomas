@@ -66,7 +66,7 @@ class Assignment extends Component {
     console.log("adding assignment");
     const token = Cookies.get('XSRF-TOKEN');
 
-    fetch(`${SERVER_URL}/addAssignment`,
+    fetch(`${SERVER_URL}/gradebook/addAssignment`,
     {
       method: 'POST',
       headers: { 'X-XSRF-TOKEN': token ,'Content-Type': 'application/json'},
@@ -141,7 +141,7 @@ class Assignment extends Component {
             {/*TODO: dropdown list of course names*/}
             <label for="courseName">Course Name: </label>
             <input type="text" id="courseName" onChange={this.onCourseChange}></input><br></br>
-            <Button component={Link} to={{pathname:'/gradebook/addAssignment'}}>
+            <Button onClick={this.addAssignment} to={{pathname:'/gradebook/addAssignment'}}>
               Add Assignment
             </Button>
           </div>        
