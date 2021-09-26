@@ -139,8 +139,8 @@ class Assignment extends Component {
             <label for="assignmentDueDate">Assignment Due Date: </label>
             <input type="text" id="assignmentDueDate" name="assignmentDueDate" placeholder="09/21/21 11:59pm" onChange={this.onDateChange}></input><br></br>
             {/*TODO: dropdown list of course names*/}
-            <label for="courseName">Course Name: </label>
-            <input type="text" id="courseName" onChange={this.onCourseChange}></input><br></br>
+            <label for="courseId">Course Name: </label>
+            <input type="number" id="courseId" onChange={this.onCourseChange}></input><br></br>
             <Button onClick={this.addAssignment} to={{pathname:'/gradebook/addAssignment'}}>
               Add Assignment
             </Button>
