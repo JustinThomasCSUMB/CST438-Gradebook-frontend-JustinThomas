@@ -121,7 +121,7 @@ class Assignment extends Component {
       return (
         <div id="assignmentBody">
           <div align="left" >
-                <h4>Assignment(s) ready to grade: </h4>
+                <h4>Assignments ready to grade </h4>
                   <div style={{ height: 450, width: '100%', align:"left"   }}>
                     <DataGrid rows={this.state.rows} columns={columns} />
                   </div>                
