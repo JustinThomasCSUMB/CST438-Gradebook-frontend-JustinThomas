@@ -141,7 +141,7 @@ class Assignment extends Component {
             {/*TODO: dropdown list of course names*/}
             <label htmlFor="courseId">Course Name: </label>
             <input type="number" id="courseId" onChange={this.onCourseChange}></input><br></br>
-            <Button onClick={this.addAssignment} name='buttonSubmit' to={{pathname:'/gradebook/addAssignment'}}>
+            <Button onClick={this.addAssignment} id='buttonSubmit' to={{pathname:'/gradebook/addAssignment'}}>
               Add Assignment
             </Button>
           </div>        
