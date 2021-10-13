@@ -29,7 +29,8 @@ class Assignment extends Component {
     fetch(`${SERVER_URL}/gradebook`, 
       {  
         method: 'GET', 
-        headers: { 'X-XSRF-TOKEN': token }
+        headers: { 'X-XSRF-TOKEN': token },
+        credentials: 'include'
       } )
     .then((response) => response.json()) 
     .then((responseData) => { 
@@ -70,6 +71,7 @@ class Assignment extends Component {
     {
       method: 'POST',
       headers: { 'X-XSRF-TOKEN': token ,'Content-Type': 'application/json'},
+      credentials: 'include',
       body: JSON.stringify({
         assignmentName: this.state.name,
         dueDate: this.state.dueDate,
