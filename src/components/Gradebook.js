@@ -28,7 +28,7 @@ class Gradebook extends Component {
     }
  
     fetchGrades = () => {
-      console.log("Gradebook.fetchGrades");
+      console.log("Gradebook.fetchGradebook");
       const token = Cookies.get('XSRF-TOKEN');
       fetch(`${SERVER_URL}/gradebook/${this.props.location.assignment.assignmentId}`, 
         {  
@@ -118,7 +118,7 @@ class Gradebook extends Component {
               <Grid container>
                 <Grid item align="left">
                    <h4>Assignment: {assignment.assignmentName}</h4>
-                   <h4>Course: {assignment.courseTitle}</h4>                   
+                   <h4>Course: {assignment.courseTitle}</h4>           
                 </Grid>
               </Grid>
               <div style={{ height: 400, width: '100%' }}>

@@ -20,8 +20,9 @@ function App() {
       <BrowserRouter>
        <Switch>
         <Route exact path='/' component={Login} />
-        <Route exact path='/assignment' component={Assignment} />
+        <Route exact path='/gradebook' component={Assignment} />
         <Route path='/gradebook' component={Gradebook} />
+        <Route path='/gradebook/addAssignment' component={Assignment}/>
        </Switch>
       </BrowserRouter>
     </div>
